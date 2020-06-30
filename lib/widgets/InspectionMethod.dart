@@ -14,6 +14,7 @@ class InspectionMethod extends StatelessWidget {
         childern: [
           CutomWightRow(
             onTap: () {
+              dataSource.addMarkers();
               dataSource.setInspectionMetod(Inspection.WINCH);
               dataSource.setStatus(Status.SELECT_PROVIDER);
             },
@@ -29,8 +30,10 @@ class InspectionMethod extends StatelessWidget {
           ),
           CutomWightRow(
             onTap: () {
+              dataSource.addMarkers();
               dataSource
                   .setInspectionMetod(Inspection.SERVICE_PROVIDER_HIMSELF);
+              dataSource.setStatus(Status.SELECT_PROVIDER);
             },
             text: "النقل بواسطة القائم بالفحص",
             iconVisibility:

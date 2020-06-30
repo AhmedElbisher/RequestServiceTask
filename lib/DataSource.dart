@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:servicerequest/services/locationService.dart';
 
 enum Status {
@@ -17,6 +18,7 @@ enum Maintainance { ELECTRICAL, MECHANICAL, OTHER }
 
 class DataSource extends ChangeNotifier {
   var _locationService = LocationService();
+
   Position _currentPosition = Position(latitude: 31.2216, longitude: 29.9343);
   String _currentPostionName = "";
   bool _currentLocationContainerVisablitity = false;
@@ -25,12 +27,37 @@ class DataSource extends ChangeNotifier {
   NumberOfTires _selectedNumberOfTires = NumberOfTires.ONE;
   Inspection _inspection = Inspection.WINCH;
   Maintainance _maintainance = Maintainance.ELECTRICAL;
+  Set<Marker> _markers = {};
 
   //set selected maintainance method
   Maintainance get maintainance => _maintainance;
   void setSelectedMaintainaceMethod(Maintainance method) {
     _maintainance = method;
     notifyListeners();
+  }
+
+  //add marker
+  Set<Marker> get markers => _markers;
+  void addMrkeratPositions(Position position, String imagePath, String markerId,
+      double alpha) async {
+    ImageConfiguration imageConfiguration = ImageConfiguration();
+    var bitmapDescriper =
+        await BitmapDescriptor.fromAssetImage(imageConfiguration, imagePath);
+    markers.add(Marker(
+      alpha: alpha,
+      markerId: MarkerId(markerId),
+      position: LatLng(position.latitude, position.longitude),
+      icon: bitmapDescriper,
+    ));
+    notifyListeners();
+  }
+
+  //test add markers
+  void addMarkers() {
+    addMrkeratPositions(Position(latitude: 31.2204669, longitude: 29.9330876),
+        "images/providerMarker.png", "aaaa", 1);
+    addMrkeratPositions(Position(latitude: 31.2212284, longitude: 29.9342302),
+        "images/providerMarker.png", "bbb", 1);
   }
 
   //set check mark on the selected inspection method
@@ -53,6 +80,8 @@ class DataSource extends ChangeNotifier {
 
   //get position from location service
   void getCurrenPosition() async {
+    addMrkeratPositions(
+        currentPosition, "images/marker.png", "current position", .65);
     currentPosition = await _locationService.getCurrentLocation();
     notifyListeners();
   }

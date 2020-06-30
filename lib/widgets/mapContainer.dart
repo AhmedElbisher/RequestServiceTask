@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:servicerequest/DataSource.dart';
 
 class MapContainer extends StatelessWidget {
   final Position currentPosition;
@@ -13,19 +15,12 @@ class MapContainer extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       child: GoogleMap(
         zoomControlsEnabled: false,
-        markers: {
-          Marker(
-            markerId: MarkerId("user current location"),
-            position:
-                LatLng(currentPosition.latitude, currentPosition.longitude),
-            icon: BitmapDescriptor.defaultMarker,
-          )
-        },
+        markers: Provider.of<DataSource>(context).markers,
         initialCameraPosition: CameraPosition(
           target: LatLng(currentPosition.latitude, currentPosition.longitude),
           // Provider.of<DataSource>(context).currentPosition.latitude,
           //Provider.of<DataSource>(context).currentPosition.longitude),
-          zoom: 13.0,
+          zoom: 16.0,
         ),
       ),
     );
@@ -33,8 +28,6 @@ class MapContainer extends StatelessWidget {
 }
 
 //marker image
-
-//todo  Future<BitmapDescriptor> _getImageFromAsset(String path) async {
 //    ImageConfiguration imageConfiguration = ImageConfiguration();
 //    var x = await BitmapDescriptor.fromAssetImage(imageConfiguration, path);
 //    setState(() {
