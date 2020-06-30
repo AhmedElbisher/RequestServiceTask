@@ -15,6 +15,7 @@ class InspectionMethod extends StatelessWidget {
           CutomWightRow(
             onTap: () {
               dataSource.setInspectionMetod(Inspection.WINCH);
+              dataSource.setStatus(Status.SELECT_PROVIDER);
             },
             text: "النقل بالونش",
             iconVisibility:
