@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:servicerequest/services/locationService.dart';
@@ -10,6 +11,7 @@ enum Status {
   SELSCT_NUMBER_OF_TIRES,
   SELECT_MAINTANANCE_TYPE,
   SELECT_PROVIDER,
+  No_Result,
 }
 enum Service { MAINTAINANCE, TIRES, PERIODIC_CHECK }
 enum NumberOfTires { ONE, TWO, TREE, FOUR }
@@ -105,6 +107,7 @@ class DataSource extends ChangeNotifier {
   void setStatus(Status st) {
     _status = st;
     notifyListeners();
+    if (st == Status.No_Result) {}
   }
 
   //set the name of the current position

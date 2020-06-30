@@ -30,10 +30,44 @@ class InspectionMethod extends StatelessWidget {
           ),
           CutomWightRow(
             onTap: () {
+              //todo the correct implementation of this function
               dataSource.addMarkers();
               dataSource
                   .setInspectionMetod(Inspection.SERVICE_PROVIDER_HIMSELF);
-              dataSource.setStatus(Status.SELECT_PROVIDER);
+              dataSource.setStatus(Status.No_Result);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      content: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Container(
+                          margin: EdgeInsets.all(30),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    image: AssetImage("images/noCar.png"),
+                                  ),
+                                  Text(
+                                    "لا يوجد نتائج حاول مره اخرى",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        color: Constants.KPrimaryColor,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  });
             },
             text: "النقل بواسطة القائم بالفحص",
             iconVisibility:

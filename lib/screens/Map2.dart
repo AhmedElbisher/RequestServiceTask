@@ -35,6 +35,8 @@ class _Map2State extends State<Map2> {
         return Tires();
       case Status.SELECT_MAINTANANCE_TYPE:
         return MaintainanceType();
+      case Status.No_Result:
+        return null;
       case Status.SELECT_PROVIDER:
         return Container(
           height: (MediaQuery.of(context).size.width * 2 / 5) + 20,
@@ -103,3 +105,12 @@ class _Map2State extends State<Map2> {
     );
   }
 }
+//if (Provider.of<DataSource>(context).status == Status.No_Result) {
+//showDialog(
+//context: context,
+//builder: (context) {
+//return AlertDialog(
+//title: Text("no result"),
+//);
+//});
+//}

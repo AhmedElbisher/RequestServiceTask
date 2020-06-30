@@ -1,3 +1,5 @@
+import 'package:geolocator/geolocator.dart';
+
 class ProviderInfo {
   String _name;
   String _PictureUrl;
@@ -5,9 +7,16 @@ class ProviderInfo {
   String _cost;
   String _phoneNumber;
   double _rating;
+  Position _position;
 
   ProviderInfo(this._name, this._PictureUrl, this._offerCost, this._cost,
-      this._phoneNumber, this._rating);
+      this._phoneNumber, this._rating, this._position);
+
+  Position get position => _position;
+
+  set position(Position value) {
+    _position = value;
+  }
 
   String get name => _name;
 
