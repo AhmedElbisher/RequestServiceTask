@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/DataSource.dart';
+import 'package:servicerequest/DateTimeHelper.dart';
 import 'package:servicerequest/screens/Map.dart';
 import 'package:servicerequest/services/locationService.dart';
 
@@ -13,14 +14,15 @@ class MyApp extends StatelessWidget {
   LocationService locationService = LocationService();
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<DataSource>(
-        create: (context) => DataSource(),
-        builder: (context, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData.light(),
-            home: MapScreen(),
-          );
-        });
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => DataSource()),
+          ChangeNotifierProvider(create: (context) => DateTimeHepper()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.light(),
+          home: MapScreen(),
+        ));
   }
 }

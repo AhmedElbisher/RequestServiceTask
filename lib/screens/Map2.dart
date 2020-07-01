@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/widgets/BackArrow.dart';
+import 'package:servicerequest/widgets/BottomSheetWidget.dart';
 import 'package:servicerequest/widgets/InspectionMethod.dart';
 import 'package:servicerequest/widgets/MaintainanceType.dart';
 import 'package:servicerequest/widgets/MenuIcon.dart';
@@ -18,6 +19,13 @@ class Map2 extends StatefulWidget {
 }
 
 class _Map2State extends State<Map2> {
+  void showBottomSheet() {
+    showModalBottomSheet(
+        context: context,
+        barrierColor: Colors.white.withOpacity(0.1),
+        builder: (context) => BottomSheetWidget());
+  }
+
   Widget getProperWiget(Status status) {
     switch (status) {
       case Status.START:

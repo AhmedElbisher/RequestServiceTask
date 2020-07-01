@@ -34,6 +34,8 @@ dependencies:
   http: ^0.12.1
   flutter_rating_bar: ^3.0.1+1
   flutter_text_justify_rtl: ^0.0.4
+  intl: ^0.16.1
+
 
 
 
@@ -63,6 +65,8 @@ flutter:
     - images/redmark.png
     - images/providerMarker.png
     - images/noCar.png
+    - images/date.png
+    - images/carPrimary.png
 
   #   - images/a_dot_ham.jpeg
 

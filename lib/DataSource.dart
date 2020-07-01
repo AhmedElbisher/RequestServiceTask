@@ -20,7 +20,6 @@ enum Maintainance { ELECTRICAL, MECHANICAL, OTHER }
 
 class DataSource extends ChangeNotifier {
   var _locationService = LocationService();
-
   Position _currentPosition = Position(latitude: 31.2216, longitude: 29.9343);
   String _currentPostionName = "";
   bool _currentLocationContainerVisablitity = false;

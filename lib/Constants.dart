@@ -12,6 +12,37 @@ class Constants {
     fontWeight: FontWeight.w700,
     color: Constants.KPrimaryColor,
   );
+  static const TextStyle KSelectedItem = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w700,
+    color: Constants.KPrimaryColor,
+  );
+  static const TextStyle KUnSelectedItem = TextStyle(
+    fontSize: 19,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff9e9999),
+  );
+
+  static const TextStyle KSelectedHr = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
+    color: Constants.KPrimaryColor,
+  );
+  static const TextStyle KUnSelectedHr = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff9e9999),
+  );
+
   static const Color KPrimaryColor = Color(0xff002d57);
   static const double KSearchIconSize = 30;
+
+  static const List<String> AMPM = ["صباح", "مساء"];
+  static final List<String> hours = List<String>.generate(12, (index) {
+    if (index + 1 < 10) {
+      return "0${index + 1}:00-0${index + 1}:30";
+    } else {
+      return "${index + 1}:00-${index + 1}:30";
+    }
+  });
 }

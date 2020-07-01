@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/DataSource.dart';
+import 'package:servicerequest/DateTimeHelper.dart';
 import 'package:servicerequest/widgets/CustomContainer.dart';
+import 'package:servicerequest/widgets/ScheduleWidget.dart';
 
 import '../Constants.dart';
 import 'CutomWightRow.dart';
@@ -29,7 +31,12 @@ class MaintainanceType extends StatelessWidget {
           ),
           CutomWightRow(
             onTap: () {
-              dataSource.setSelectedMaintainaceMethod(Maintainance.ELECTRICAL);
+              // dataSource.setSelectedMaintainaceMethod(Maintainance.ELECTRICAL);
+              Provider.of<DateTimeHepper>(context, listen: false).getdaysList();
+              showModalBottomSheet(
+                  context: context,
+                  barrierColor: Colors.white.withOpacity(0.1),
+                  builder: (context) => ScheduleWidget());
             },
             text: "كهربى",
             iconVisibility: dataSource.maintainance == Maintainance.ELECTRICAL
