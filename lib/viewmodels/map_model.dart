@@ -4,11 +4,32 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:servicerequest/viewmodels/base_model.dart';
 
 class MapModel extends BaseModel {
-  Set<Marker> _markers = {};
+  static List<Marker> _markers = [];
   static List<Position> _markerPositions = [];
+  static Position _userPosition;
+  static String _userPositionName;
+  static bool _displayName;
 
+  Position get userPosition => _userPosition;
+  String get userPositionName => _userPositionName;
+  bool get displayName => _displayName;
   List<Position> get markerPositions => _markerPositions;
-  Set<Marker> get markers => _markers;
+  List<Marker> get markers => _markers;
+
+  void setUserPosition(Position positinon) {
+    _userPosition = positinon;
+    notifyListeners();
+  }
+
+  void setUserPostionName(String value) {
+    _userPositionName = value;
+    notifyListeners();
+  }
+
+  void setDisplayName(bool state) {
+    _displayName = state;
+    notifyListeners();
+  }
 
   void addMarkertoMap(Position position, String imagePath, String markerId,
       double alpha) async {

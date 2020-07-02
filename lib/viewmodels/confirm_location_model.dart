@@ -4,42 +4,20 @@ import 'package:servicerequest/locator.dart';
 import 'package:servicerequest/services/locationService.dart';
 import 'package:servicerequest/viewmodels/map_model.dart';
 
-class MapScreenModel extends MapModel {
+class ConfirmLocationModel extends MapModel {
   LocationService _locationService = locator<LocationService>();
-  Position _userPosition;
-  String _userPositionName;
-  bool _displayName;
-
-  Position get userPosition => _userPosition;
-  String get userPositionName => _userPositionName;
-  bool get displayName => _displayName;
-
-  void setUserPosition(Position positinon) {
-    _userPosition = positinon;
-    notifyListeners();
-  }
-
-  void setUserPostionName(String value) {
-    _userPositionName = value;
-    notifyListeners();
-  }
-
-  void setDisplayName(bool state) {
-    _displayName = state;
-    notifyListeners();
-  }
 
   void getCurrenPosition() async {
     setState(ViewState.BUSY);
     //  _userPosition = await _locationService.getCurrentLocation();
     //todo remove this
-    _userPosition = Position(latitude: 31.2216, longitude: 29.9343);
-    if (_userPosition != null)
-      _userPositionName = await _locationService.getPlaceName(_userPosition);
-    if (_userPositionName != null) setDisplayName(true);
-    if (_userPosition != null)
+    setUserPosition(Position(latitude: 31.2216, longitude: 29.9343));
+    if (userPosition != null)
+      setUserPostionName(await _locationService.getPlaceName(userPosition));
+    if (userPositionName != null) setDisplayName(true);
+    if (userPosition != null)
       addMarkertoMap(
-          _userPosition, "images/marker.png", "current position", .65);
+          userPosition, "images/marker.png", "current position", .65);
     setState(ViewState.IDLE);
     notifyListeners();
   }

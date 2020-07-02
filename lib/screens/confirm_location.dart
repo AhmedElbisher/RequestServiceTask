@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/enums/enums.dart';
-import 'package:servicerequest/viewmodels/mapScreen_model.dart';
+import 'package:servicerequest/viewmodels/confirm_location_model.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
 import 'package:servicerequest/widgets/Button.dart';
 import 'package:servicerequest/widgets/MenuIcon.dart';
 import 'package:servicerequest/widgets/SearchField.dart';
@@ -12,18 +13,18 @@ import 'package:servicerequest/widgets/WhiteBottomContainer.dart';
 import 'package:servicerequest/widgets/baseview.dart';
 import 'package:servicerequest/widgets/mapContainer.dart';
 
-class MapScreen extends StatefulWidget {
+class ConfirmLocationScreen extends StatefulWidget {
   @override
-  _MapScreenState createState() => _MapScreenState();
+  _ConfirmLocationScreenState createState() => _ConfirmLocationScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
   TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     Provider.of<DataSource>(context, listen: false).getCurrenPosition();
-    return BaseView<MapScreenModel>(
+    return BaseView<ConfirmLocationModel>(
       onMapReady: (model) {
         model.getCurrenPosition();
       },
@@ -34,7 +35,7 @@ class _MapScreenState extends State<MapScreen> {
                   child: Stack(
                     children: [
                       MapContainer(
-                        markers: model.markers,
+                        markers: model.markers.toSet(),
                         currentPosition: model.userPosition,
                       ),
                       Visibility(
@@ -42,6 +43,7 @@ class _MapScreenState extends State<MapScreen> {
                           child: WhiteBottomContainer(
                             cancelIconVisability: true,
                             onCancel: () {
+                              model.setUserPostionName(null);
                               model.setDisplayName(false);
                             },
                             currentLocationName: model.userPositionName,
@@ -50,7 +52,9 @@ class _MapScreenState extends State<MapScreen> {
                           alignment: Alignment.bottomCenter,
                           child: Button(
                             onPress: () {
-                              // dataSource.setStatus(Status.START);
+                              Provider.of<SelectServiceModel>(context,
+                                      listen: false)
+                                  .setLocalNav(LocalNav.START);
                               Navigator.pushNamed(
                                   context, Constants.KMap2Route);
                             },
@@ -65,8 +69,8 @@ class _MapScreenState extends State<MapScreen> {
                               //set the name to the new name
                               //set displayname to true
                               //navigate the camera to it
-
                               // static data for testing ui
+
                               model.setDisplayName(true);
                               model.setUserPostionName(quary);
                             },

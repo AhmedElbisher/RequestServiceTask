@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:servicerequest/DataSource.dart';
 
 import 'Button1.dart';
 import 'WhiteBottomContainer.dart';
 
 class StartRequest extends StatelessWidget {
   final Function onPress;
-  StartRequest({this.onPress});
+  final String name;
+  final bool visibility;
+  StartRequest({this.onPress, this.name, this.visibility});
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Visibility(
-          visible: Provider.of<DataSource>(context)
-              .currentLocationContainerVisablitity,
+          visible: visibility,
           child: WhiteBottomContainer(
             cancelIconVisability: false,
-            onCancel: () => Provider.of<DataSource>(context)
-                .setCurrentLocationContainerVisablitity(false),
-            currentLocationName:
-                Provider.of<DataSource>(context).currentPostionName,
+            onCancel: () {},
+            currentLocationName: name,
           ),
         ),
         Align(

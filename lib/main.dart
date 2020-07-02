@@ -5,6 +5,7 @@ import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/DateTimeHelper.dart';
 import 'package:servicerequest/locator.dart';
 import 'package:servicerequest/services/locationService.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
 
 import 'Router.dart';
 
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(
+              create: (context) => locator<SelectServiceModel>()),
           ChangeNotifierProvider(create: (context) => DataSource()),
           ChangeNotifierProvider(create: (context) => DateTimeHepper()),
         ],

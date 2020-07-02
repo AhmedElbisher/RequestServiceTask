@@ -8,9 +8,16 @@ class CustomFlatButton extends StatelessWidget {
   final String text;
   final bool iconVisibility;
   final String iconPath;
+  final double paddingValue;
+  final bool dividerVisibility;
 
   CustomFlatButton(
-      {this.onPress, this.text, this.iconVisibility, this.iconPath});
+      {this.onPress,
+      this.paddingValue,
+      this.text,
+      this.dividerVisibility,
+      this.iconVisibility,
+      this.iconPath});
 
   @override
   Widget build(BuildContext context) {
@@ -19,42 +26,65 @@ class CustomFlatButton extends StatelessWidget {
       elevation: 4.0,
       color: Constants.KPrimaryColor,
       onPressed: onPress,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Visibility(
-            visible: iconVisibility,
-            child: Icon(
-              Icons.check,
-              size: 20,
-              color: Colors.white,
-            ),
-          ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: paddingValue),
+        child: Wrap(
+          children: [
+            Column(
               children: [
-                Text(
-                  text,
-                  textDirection: TextDirection.rtl,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      color: Constants.KaAccentColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Visibility(
+                      visible: iconVisibility,
+                      child: Icon(
+                        Icons.check,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            text,
+                            //textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                color: Constants.KaAccentColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 8),
+                            child: Image(
+                              width: 40,
+                              height: 32,
+                              image: AssetImage(iconPath),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: iconVisibility ? 20 : 10),
-                  width: 40,
-                  height: 32,
-                  child: Image(
-                    image: AssetImage(iconPath),
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Visibility(
+                    visible: dividerVisibility,
+                    child: SizedBox(
+                      child: Divider(
+                        color: Colors.white,
+                        height: 2,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
