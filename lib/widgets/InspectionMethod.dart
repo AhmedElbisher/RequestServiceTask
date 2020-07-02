@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/DataSource.dart';
+import 'package:servicerequest/enums/enums.dart';
 import 'package:servicerequest/widgets/CustomContainer.dart';
+import 'package:servicerequest/widgets/NoResultAlertwidget.dart';
 
 import '../Constants.dart';
 import 'CutomWightRow.dart';
@@ -38,35 +40,7 @@ class InspectionMethod extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      content: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Container(
-                          margin: EdgeInsets.all(30),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image(
-                                    image: AssetImage("images/noCar.png"),
-                                  ),
-                                  Text(
-                                    "لا يوجد نتائج حاول مره اخرى",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        color: Constants.KPrimaryColor,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                    return NoResultAlertwidget();
                   });
             },
             text: "النقل بواسطة القائم بالفحص",

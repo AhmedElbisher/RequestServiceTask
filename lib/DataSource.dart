@@ -4,26 +4,14 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:servicerequest/services/locationService.dart';
 
-enum Status {
-  START,
-  SELECT_SERVICE,
-  SELECT_TRANSPORTATION_METHOD,
-  SELSCT_NUMBER_OF_TIRES,
-  SELECT_MAINTANANCE_TYPE,
-  SELECT_PROVIDER,
-  No_Result,
-}
-enum Service { MAINTAINANCE, TIRES, PERIODIC_CHECK }
-enum NumberOfTires { ONE, TWO, TREE, FOUR }
-enum Inspection { WINCH, SERVICE_PROVIDER_HIMSELF }
-enum Maintainance { ELECTRICAL, MECHANICAL, OTHER }
+import 'enums/enums.dart';
 
 class DataSource extends ChangeNotifier {
   var _locationService = LocationService();
   Position _currentPosition = Position(latitude: 31.2216, longitude: 29.9343);
   String _currentPostionName = "";
   bool _currentLocationContainerVisablitity = false;
-  Status _status;
+  Status _status = Status.START;
   Service _selectedService = Service.PERIODIC_CHECK;
   NumberOfTires _selectedNumberOfTires = NumberOfTires.ONE;
   Inspection _inspection = Inspection.WINCH;

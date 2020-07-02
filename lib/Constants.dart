@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Constants {
+  static const String KMapRoute = '/';
+  static const String KMap2Route = '/map2';
+
   static const Color KaAccentColor = Color(0xffd0b475);
   static const Color KHelperColor = Color(0xff9e9999);
   static const Color KDecorationColor = Color(0xffdf0808);
@@ -27,6 +30,22 @@ class Constants {
     fontSize: 17,
     fontWeight: FontWeight.w700,
     color: Constants.KPrimaryColor,
+  );
+  static const TextStyle KConfirmFirestTextStyle = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w700,
+    color: Constants.KPrimaryColor,
+  );
+
+  static const TextStyle KConfirmSecondTextStyle = TextStyle(
+    fontSize: 15,
+    color: Color(0xff6b6b6b),
+  );
+
+  static const TextStyle KConfirmTimeTextStyle = TextStyle(
+    fontSize: 40,
+    fontWeight: FontWeight.w900,
+    color: Color(0xffc3922e),
   );
   static const TextStyle KUnSelectedHr = TextStyle(
     fontSize: 17,

@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/DataSource.dart';
+import 'package:servicerequest/enums/enums.dart';
+import 'package:servicerequest/viewmodels/mapScreen_model.dart';
 import 'package:servicerequest/widgets/Button.dart';
 import 'package:servicerequest/widgets/MenuIcon.dart';
 import 'package:servicerequest/widgets/SearchField.dart';
 import 'package:servicerequest/widgets/WhiteBottomContainer.dart';
+import 'package:servicerequest/widgets/baseview.dart';
 import 'package:servicerequest/widgets/mapContainer.dart';
-
-import 'Map2.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -17,49 +18,41 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Position position;
-  String currentPositionName;
-  bool currentLocationContainerVisablitity = false;
   TextEditingController controller = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     Provider.of<DataSource>(context, listen: false).getCurrenPosition();
-    return Consumer<DataSource>(
-      builder: (context, dataSource, child) {
+    return BaseView<MapScreenModel>(
+      onMapReady: (model) {
+        model.getCurrenPosition();
+      },
+      builder: (context, model, child) {
         return Scaffold(
-          body: dataSource.currentPosition != null
+          body: model.state == ViewState.IDLE
               ? SafeArea(
                   child: Stack(
                     children: [
                       MapContainer(
-                        currentPosition: dataSource.currentPosition,
+                        markers: model.markers,
+                        currentPosition: model.userPosition,
                       ),
                       Visibility(
-                          visible:
-                              dataSource.currentLocationContainerVisablitity,
+                          visible: model.displayName,
                           child: WhiteBottomContainer(
                             cancelIconVisability: true,
                             onCancel: () {
-                              dataSource.setCurrentLocationContainerVisablitity(
-                                  false);
+                              model.setDisplayName(false);
                             },
-                            currentLocationName: dataSource.currentPostionName,
+                            currentLocationName: model.userPositionName,
                           )),
                       Align(
                           alignment: Alignment.bottomCenter,
                           child: Button(
                             onPress: () {
-                              dataSource.setStatus(Status.START);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Map2()));
+                              // dataSource.setStatus(Status.START);
+                              Navigator.pushNamed(
+                                  context, Constants.KMap2Route);
                             },
                             text: "تأكيد الموقع",
                           )),
@@ -67,11 +60,15 @@ class _MapScreenState extends State<MapScreen> {
                           alignment: Alignment.topCenter,
                           child: SearchField(
                             onSummitted: (quary) {
-                              dataSource
-                                  .setCurrentLocationContainerVisablitity(true);
                               //todo here will trigger a function to search for the location and retreive data from google places Api
-                              //this for static data
-                              dataSource.setCurrentPostionName(quary);
+                              // set the userposition to the new postition
+                              //set the name to the new name
+                              //set displayname to true
+                              //navigate the camera to it
+
+                              // static data for testing ui
+                              model.setDisplayName(true);
+                              model.setUserPostionName(quary);
                             },
                             controller: controller,
                           )),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/DateTimeHelper.dart';
+import 'package:servicerequest/enums/enums.dart';
+import 'package:servicerequest/widgets/ConfirmAlertWidget.dart';
 import 'package:servicerequest/widgets/CustomContainer.dart';
 import 'package:servicerequest/widgets/ScheduleWidget.dart';
 
@@ -52,6 +54,11 @@ class MaintainanceType extends StatelessWidget {
           CutomWightRow(
             onTap: () {
               dataSource.setSelectedMaintainaceMethod(Maintainance.OTHER);
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return ConfirmAlertWidget();
+                  });
             },
             text: "اخرى",
             iconVisibility:

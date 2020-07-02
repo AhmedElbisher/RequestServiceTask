@@ -88,6 +88,7 @@ class BottomSheetWidget extends StatelessWidget {
                 ),
                 Expanded(
                     child: ConfirmButton(
+                  text: "تأكيد",
                   onPress: () {},
                 ))
               ],

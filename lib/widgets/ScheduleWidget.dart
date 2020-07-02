@@ -104,6 +104,7 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                 children: [
                   Expanded(
                     child: ConfirmButton(
+                      text: "تأكيد",
                       onPress: () => DateTimeHepper()
                           .getScheduleDate(selectedDay, selectedHR, selectedAm),
                     ),

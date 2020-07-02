@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/DataSource.dart';
+import 'package:servicerequest/enums/enums.dart';
 import 'package:servicerequest/widgets/BackArrow.dart';
 import 'package:servicerequest/widgets/BottomSheetWidget.dart';
 import 'package:servicerequest/widgets/InspectionMethod.dart';
@@ -13,12 +14,12 @@ import 'package:servicerequest/widgets/StartRequest.dart';
 import 'package:servicerequest/widgets/Tires.dart';
 import 'package:servicerequest/widgets/mapContainer.dart';
 
-class Map2 extends StatefulWidget {
+class Map2Screen extends StatefulWidget {
   @override
-  _Map2State createState() => _Map2State();
+  _Map2ScreenState createState() => _Map2ScreenState();
 }
 
-class _Map2State extends State<Map2> {
+class _Map2ScreenState extends State<Map2Screen> {
   void showBottomSheet() {
     showModalBottomSheet(
         context: context,

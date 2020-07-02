@@ -4,9 +4,8 @@ import '../Constants.dart';
 
 class ConfirmButton extends StatelessWidget {
   final Function onPress;
-
-  ConfirmButton({this.onPress});
-
+  final String text;
+  ConfirmButton({this.text, this.onPress});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +17,7 @@ class ConfirmButton extends StatelessWidget {
         elevation: 4,
         onPressed: onPress,
         child: Text(
-          "تاكيد",
+          text,
           style: TextStyle(
               color: Constants.KaAccentColor,
               fontSize: 20,
