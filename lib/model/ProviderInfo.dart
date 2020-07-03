@@ -2,15 +2,29 @@ import 'package:geolocator/geolocator.dart';
 
 class ProviderInfo {
   String _name;
-  String _PictureUrl;
+  String _pictureUrl;
   String _offerCost; //null if it not exist
   String _cost;
   String _phoneNumber;
   double _rating;
   Position _position;
 
-  ProviderInfo(this._name, this._PictureUrl, this._offerCost, this._cost,
-      this._phoneNumber, this._rating, this._position);
+  String get pictureUrl => _pictureUrl;
+
+  set pictureUrl(String value) {
+    _pictureUrl = value;
+  }
+
+  ProviderInfo(
+      {name, pictureUrl, offerCost, cost, phoneNumber, rating, position}) {
+    _name = name;
+    _pictureUrl = pictureUrl;
+    _offerCost = offerCost;
+    _cost = cost;
+    _phoneNumber = phoneNumber;
+    _rating = rating;
+    _position = position;
+  }
 
   Position get position => _position;
 
@@ -23,8 +37,6 @@ class ProviderInfo {
   set name(String value) {
     _name = value;
   }
-
-  String get PictureUrl => _PictureUrl;
 
   double get rating => _rating;
 
@@ -48,9 +60,5 @@ class ProviderInfo {
 
   set offerCost(String value) {
     _offerCost = value;
-  }
-
-  set PictureUrl(String value) {
-    _PictureUrl = value;
   }
 }

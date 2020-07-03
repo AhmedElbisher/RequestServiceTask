@@ -14,15 +14,15 @@ class Button1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SelectServiceModel>(
       builder: (context, model, childe) => Container(
-        padding: EdgeInsets.all(0),
+        height: 43.0,
         margin: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 30),
         decoration: BoxDecoration(
             color: Colors.transparent.withOpacity(0),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8),
                 bottomLeft: Radius.circular(8),
-                topRight: Radius.circular(4),
-                bottomRight: Radius.circular(4))),
+                topRight: Radius.circular(6),
+                bottomRight: Radius.circular(6))),
         child: Row(
           children: [
             GestureDetector(
@@ -35,17 +35,18 @@ class Button1 extends StatelessWidget {
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
                 child: Container(
-                  //margin: EdgeInsets.symmetric(horizontal: 8),
+                  //margin: EdgeInsets.symmetric(vertical: 10),
                   //padding: EdgeInsets.symmetric(horizontal: 8),
-                  width: 47,
+                  // width: 47,
                   decoration: BoxDecoration(
                       color: Constants.KPrimaryColor,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(8),
                           bottomLeft: Radius.circular(8))),
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Image(
+                      height: 36,
                       image: AssetImage("images/wokshop.png"),
                     ),
                   ),

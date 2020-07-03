@@ -13,11 +13,6 @@ class SelectServiceScreen extends StatefulWidget {
 
 class _SelectServiceScreenState extends State<SelectServiceScreen> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<SelectServiceModel>(
@@ -36,7 +31,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
                     child: model.getProperWiget()),
                 BackArrow(
                   back: () {
-                    Navigator.pop(context);
+                    model.back(context);
                   },
                 )
               ],

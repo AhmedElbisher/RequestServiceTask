@@ -3,8 +3,26 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Constants {
-  static const String KMapRoute = '/';
-  static const String KMap2Route = '/map2';
+  static const String PERIODIC_CHECK = "الفحص الدورى للسيارة";
+  static const String MAINTAINANCE = "صيانة السيارة";
+  static const String CHANGE_TIRES = "تغيير الايطار";
+
+  static const String INSPECTION_WINCH = "النقل بالونش";
+  static const String INSPECTION_PROVIDER_HIMSELF =
+      "النقل بواسطة القائم بالفحص";
+
+  static const String MAINTAINANCE_ELECTICAL = "كهربى";
+  static const String MAINTAINANCE_MECHANICAL = "ميكانيكي";
+  static const String MAINTAINANCE_OTHER = "اخرى";
+
+  static const String ONE_TIRE = "عدد 1 ايطار";
+  static const String TWO_TIRE = "عدد 2 ايطار";
+  static const String THREE_TIRE = "عدد 3 ايطار";
+  static const String FOUR_TIRE = "عدد 4 ايطار";
+
+  static const String KConfirmLocation = '/';
+  static const String KSELECTSERVICE = '/map2';
+  static const String KChooseProvider = '/map3';
 
   static const Color KaAccentColor = Color(0xffd0b475);
   static const Color KHelperColor = Color(0xff9e9999);
@@ -32,7 +50,7 @@ class Constants {
     color: Constants.KPrimaryColor,
   );
   static const TextStyle KConfirmFirestTextStyle = TextStyle(
-    fontSize: 22,
+    fontSize: 19,
     fontWeight: FontWeight.w700,
     color: Constants.KPrimaryColor,
   );
@@ -56,7 +74,7 @@ class Constants {
   static const Color KPrimaryColor = Color(0xff002d57);
   static const double KSearchIconSize = 30;
 
-  static const List<String> AMPM = ["صباح", "مساء"];
+  static const List<String> AMPM = ["مساء"];
   static final List<String> hours = List<String>.generate(12, (index) {
     if (index + 1 < 10) {
       return "0${index + 1}:00-0${index + 1}:30";

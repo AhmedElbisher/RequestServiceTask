@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:servicerequest/Constants.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
 import 'package:servicerequest/widgets/AlertDialogContainer.dart';
 import 'package:servicerequest/widgets/ConfirmButton.dart';
 
@@ -13,18 +15,13 @@ class ConfirmAlertWidget extends StatelessWidget {
           style: Constants.KConfirmFirestTextStyle,
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          "في حالة الغاء الطلب بعد الموعد",
-          style: Constants.KConfirmSecondTextStyle,
-          textAlign: TextAlign.center,
-        ),
-        Text(
-          "ب 6 ساعات سوف يتم تطبيق غرامه",
-          style: Constants.KConfirmSecondTextStyle,
-          textAlign: TextAlign.center,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          child: Text(
+            " في حالة الغاء الطلب بعد الموعد ب 6 ساعات سوف يتم تطبيق غرامه",
+            style: Constants.KConfirmSecondTextStyle,
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(
           height: 10,
@@ -42,7 +39,14 @@ class ConfirmAlertWidget extends StatelessWidget {
             Expanded(
               child: ConfirmButton(
                 text: "تاكيد الحجز",
-                onPress: () {},
+                onPress: () {
+                  Provider.of<SelectServiceModel>(context, listen: false)
+                      .request
+                      .schesuleTime = DateTime.now().add(Duration(hours: 24));
+                  Provider.of<SelectServiceModel>(context, listen: false)
+                      .printReqeust();
+                  Navigator.pushNamed(context, Constants.KChooseProvider);
+                },
               ),
             ),
           ],

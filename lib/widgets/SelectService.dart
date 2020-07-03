@@ -23,12 +23,13 @@ class SelectService extends StatelessWidget {
                     dividerVisibility: true,
                     paddingValue: 20,
                     onPress: () {
-                      model.request.SelectedService = Service.PERIODIC_CHECK;
+                      model.setSelectedService(Service.PERIODIC_CHECK);
                       model.setLocalNav(LocalNav.SELECT_TRANSPORTATION_METHOD);
                     },
-                    text: "الفحص الدورى للسيارة",
+                    text: Constants.PERIODIC_CHECK,
                     iconVisibility:
-                        model.request.SelectedService == Service.PERIODIC_CHECK
+                        model.SelectedService == Service.PERIODIC_CHECK ||
+                                model.SelectedService == null
                             ? true
                             : false,
                     iconPath: "images/car.png",
@@ -37,12 +38,12 @@ class SelectService extends StatelessWidget {
                     dividerVisibility: true,
                     paddingValue: 20,
                     onPress: () {
-                      model.request.SelectedService = Service.MAINTAINANCE;
+                      model.setSelectedService(Service.MAINTAINANCE);
                       model.setLocalNav(LocalNav.SELECT_MAINTANANCE_TYPE);
                     },
-                    text: "صيانة السيارة",
+                    text: Constants.MAINTAINANCE,
                     iconVisibility:
-                        model.request.SelectedService == Service.MAINTAINANCE
+                        model.SelectedService == Service.MAINTAINANCE
                             ? true
                             : false,
                     iconPath: "images/wokshop.png",
@@ -51,14 +52,12 @@ class SelectService extends StatelessWidget {
                     dividerVisibility: false,
                     paddingValue: 20,
                     onPress: () {
-                      model.request.SelectedService = Service.TIRES;
+                      model.setSelectedService(Service.TIRES);
                       model.setLocalNav(LocalNav.SELSCT_NUMBER_OF_TIRES);
                     },
-                    text: "تغيير الايطار",
+                    text: Constants.CHANGE_TIRES,
                     iconVisibility:
-                        model.request.SelectedService == Service.TIRES
-                            ? true
-                            : false,
+                        model.SelectedService == Service.TIRES ? true : false,
                     iconPath: "images/wheel.png",
                   )
                 ]),

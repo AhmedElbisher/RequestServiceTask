@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/enums/enums.dart';
-import 'package:servicerequest/locator.dart';
 import 'package:servicerequest/model/request.dart';
 import 'package:servicerequest/viewmodels/map_model.dart';
 import 'package:servicerequest/widgets/InspectionMethod.dart';
@@ -9,11 +9,47 @@ import 'package:servicerequest/widgets/SelectService.dart';
 import 'package:servicerequest/widgets/StartRequest.dart';
 import 'package:servicerequest/widgets/Tires.dart';
 
-class SelectServiceModel extends MapModel {
-  LocalNav _localNavigator;
-  Request request = locator<Request>();
+import '../locator.dart';
 
+class SelectServiceModel extends MapModel {
+  Request _request = locator<Request>();
+  LocalNav _localNavigator;
+  Service _SelectedService;
+  NumberOfTires _numberOfTires;
+  Inspection _inspectionMethod;
+  Maintainance _maintainance;
+
+  Inspection get inspectionMethod => _inspectionMethod;
+  Maintainance get maintainance => _maintainance;
+  NumberOfTires get numberOfTires => _numberOfTires;
+  Service get SelectedService => _SelectedService;
+  Request get request => _request;
   LocalNav get localNavigator => _localNavigator;
+
+  void setInspectionMethod(Inspection value) {
+    _inspectionMethod = value;
+    request.inspectionMethod = value;
+    notifyListeners();
+  }
+
+  void setMaintainance(Maintainance value) {
+    _maintainance = value;
+    request.maintainance = value;
+    notifyListeners();
+  }
+
+  void setNumberOfTires(NumberOfTires value) {
+    _numberOfTires = value;
+    request.numberOfTires = value;
+    notifyListeners();
+  }
+
+  void setSelectedService(Service value) {
+    _SelectedService = value;
+    request.SelectedService = value;
+    notifyListeners();
+  }
+
   void setLocalNav(LocalNav localNav) {
     _localNavigator = localNav;
     notifyListeners();
@@ -26,6 +62,23 @@ class SelectServiceModel extends MapModel {
         builder: (context) => widget);
   }
 
+  void back(BuildContext context) {
+    switch (localNavigator) {
+      case LocalNav.SELECT_TRANSPORTATION_METHOD:
+      case LocalNav.SELSCT_NUMBER_OF_TIRES:
+      case LocalNav.SELECT_MAINTANANCE_TYPE:
+        setLocalNav(LocalNav.SELECT_SERVICE);
+        break;
+      case LocalNav.SELECT_SERVICE:
+      case LocalNav.No_Result:
+        setLocalNav(LocalNav.START);
+        break;
+      case LocalNav.START:
+        Navigator.of(context).pop();
+        break;
+    }
+  }
+
   Widget getProperWiget() {
     switch (localNavigator) {
       case LocalNav.START:
@@ -33,6 +86,7 @@ class SelectServiceModel extends MapModel {
           visibility: displayName,
           name: userPositionName,
           onPress: () {
+            setSelectedService(Service.PERIODIC_CHECK);
             setLocalNav(LocalNav.SELECT_TRANSPORTATION_METHOD);
           },
         );
@@ -46,43 +100,55 @@ class SelectServiceModel extends MapModel {
         return MaintainanceType();
       case LocalNav.No_Result:
         return null;
-//      case Status.SELECT_PROVIDER:
-//        return Container(
-//          height: (MediaQuery.of(context).size.width * 2 / 5) + 20,
-//          child: ListView(
-//            shrinkWrap: true,
-//            reverse: true,
-//            scrollDirection: Axis.horizontal,
-//            children: [
-//              Column(
-//                mainAxisSize: MainAxisSize.min,
-//                children: [
-//                  ProviderCard(
-//                    name: "محمد ابن عبدالرحمن",
-//                    rating: 4.0,
-//                    normalCost: "200",
-//                    offerCost: "150",
-//                    imagePath: "images/profile.png",
-//                    offerExists: true,
-//                  ),
-//                ],
-//              ),
-//              Column(
-//                mainAxisSize: MainAxisSize.min,
-//                children: [
-//                  ProviderCard(
-//                    name: "محمد ابن سعفان",
-//                    rating: 3.0,
-//                    normalCost: "120",
-//                    imagePath: "images/profile.png",
-//                    offerCost: "111",
-//                    offerExists: false,
-//                  ),
-//                ],
-//              )
-//            ],
-//          ),
-//        );
     }
+  }
+
+  void printReqeust() {
+    String reqeustString = "";
+    switch (request.SelectedService) {
+      case Service.MAINTAINANCE:
+        reqeustString += Constants.MAINTAINANCE + " ";
+        switch (request.maintainance) {
+          case Maintainance.ELECTRICAL:
+            reqeustString += Constants.MAINTAINANCE_ELECTICAL + " ";
+            break;
+          case Maintainance.MECHANICAL:
+            reqeustString += Constants.MAINTAINANCE_MECHANICAL + " ";
+            break;
+          case Maintainance.OTHER:
+            reqeustString += Constants.MAINTAINANCE_OTHER + " ";
+            break;
+        }
+        break;
+      case Service.PERIODIC_CHECK:
+        reqeustString += Constants.PERIODIC_CHECK + " ";
+        switch (request.inspectionMethod) {
+          case Inspection.WINCH:
+            reqeustString += Constants.INSPECTION_WINCH;
+            break;
+          case Inspection.SERVICE_PROVIDER_HIMSELF:
+            reqeustString += Constants.INSPECTION_PROVIDER_HIMSELF;
+            break;
+        }
+        break;
+      case Service.TIRES:
+        reqeustString += Constants.CHANGE_TIRES + " ";
+        switch (request.numberOfTires) {
+          case NumberOfTires.ONE:
+            reqeustString += Constants.ONE_TIRE + " ";
+            break;
+          case NumberOfTires.TWO:
+            reqeustString += Constants.TWO_TIRE + " ";
+            break;
+          case NumberOfTires.TREE:
+            reqeustString += Constants.THREE_TIRE + " ";
+            break;
+          case NumberOfTires.FOUR:
+            reqeustString += Constants.FOUR_TIRE + " ";
+            break;
+        }
+    }
+    reqeustString += request.schesuleTime.toString();
+    print(reqeustString);
   }
 }

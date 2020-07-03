@@ -17,7 +17,7 @@ enum LocalNav {
   SELECT_MAINTANANCE_TYPE,
   No_Result,
 }
-enum Service { MAINTAINANCE, TIRES, PERIODIC_CHECK, Other }
+enum Service { MAINTAINANCE, TIRES, PERIODIC_CHECK }
 enum NumberOfTires { ONE, TWO, TREE, FOUR }
 enum Inspection { WINCH, SERVICE_PROVIDER_HIMSELF }
 enum Maintainance { ELECTRICAL, MECHANICAL, OTHER }

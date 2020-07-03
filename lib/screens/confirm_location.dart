@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/Constants.dart';
-import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/enums/enums.dart';
 import 'package:servicerequest/viewmodels/confirm_location_model.dart';
 import 'package:servicerequest/viewmodels/select_service_model.dart';
@@ -23,7 +22,6 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<DataSource>(context, listen: false).getCurrenPosition();
     return BaseView<ConfirmLocationModel>(
       onMapReady: (model) {
         model.getCurrenPosition();
@@ -56,7 +54,7 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
                                       listen: false)
                                   .setLocalNav(LocalNav.START);
                               Navigator.pushNamed(
-                                  context, Constants.KMap2Route);
+                                  context, Constants.KSELECTSERVICE);
                             },
                             text: "تأكيد الموقع",
                           )),

@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/enums/enums.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
 import 'package:servicerequest/widgets/CustomContainer.dart';
 import 'package:servicerequest/widgets/CutomWightRow.dart';
 
 import '../Constants.dart';
+import 'BottomSheetWidget.dart';
 
 class Tires extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<DataSource>(
-      builder: (context, dataSource, child) {
+    return Consumer<SelectServiceModel>(
+      builder: (context, model, child) {
         return CustomContainer(
           childern: [
             CutomWightRow(
               onTap: () {
-                dataSource.setSelectedNumberOfTire(NumberOfTires.ONE);
+                model.setNumberOfTires(NumberOfTires.ONE);
+                model.showBottomSheet(
+                    context,
+                    BottomSheetWidget(
+                      serviceName: Constants.CHANGE_TIRES,
+                      serviceDetailsString: Constants.ONE_TIRE,
+                      cost: "550",
+                      imagePath: "images/providerMarker.png",
+                    ));
               },
-              text: "عدد 1 ايطار",
-              iconVisibility:
-                  dataSource.selectedNumberOfTires == NumberOfTires.ONE
-                      ? true
-                      : false,
+              text: Constants.ONE_TIRE,
+              iconVisibility: model.numberOfTires == NumberOfTires.ONE ||
+                      model.numberOfTires == null
+                  ? true
+                  : false,
             ),
             SizedBox(
               child: Divider(
@@ -32,13 +41,19 @@ class Tires extends StatelessWidget {
             ),
             CutomWightRow(
               onTap: () {
-                dataSource.setSelectedNumberOfTire(NumberOfTires.TWO);
+                model.setNumberOfTires(NumberOfTires.TWO);
+                model.showBottomSheet(
+                    context,
+                    BottomSheetWidget(
+                      serviceName: Constants.CHANGE_TIRES,
+                      serviceDetailsString: Constants.TWO_TIRE,
+                      cost: "550",
+                      imagePath: "images/providerMarker.png",
+                    ));
               },
-              text: "عدد 2 ايطار",
+              text: Constants.TWO_TIRE,
               iconVisibility:
-                  dataSource.selectedNumberOfTires == NumberOfTires.TWO
-                      ? true
-                      : false,
+                  model.numberOfTires == NumberOfTires.TWO ? true : false,
             ),
             SizedBox(
               child: Divider(
@@ -48,13 +63,19 @@ class Tires extends StatelessWidget {
             ),
             CutomWightRow(
               onTap: () {
-                dataSource.setSelectedNumberOfTire(NumberOfTires.TREE);
+                model.setNumberOfTires(NumberOfTires.TREE);
+                model.showBottomSheet(
+                    context,
+                    BottomSheetWidget(
+                      serviceName: Constants.CHANGE_TIRES,
+                      serviceDetailsString: Constants.THREE_TIRE,
+                      cost: "550",
+                      imagePath: "images/providerMarker.png",
+                    ));
               },
-              text: "عدد 3 ايطار",
+              text: Constants.THREE_TIRE,
               iconVisibility:
-                  dataSource.selectedNumberOfTires == NumberOfTires.TREE
-                      ? true
-                      : false,
+                  model.numberOfTires == NumberOfTires.TREE ? true : false,
             ),
             SizedBox(
               child: Divider(
@@ -64,13 +85,19 @@ class Tires extends StatelessWidget {
             ),
             CutomWightRow(
               onTap: () {
-                dataSource.setSelectedNumberOfTire(NumberOfTires.FOUR);
+                model.setNumberOfTires(NumberOfTires.FOUR);
+                model.showBottomSheet(
+                    context,
+                    BottomSheetWidget(
+                      serviceName: Constants.CHANGE_TIRES,
+                      serviceDetailsString: Constants.FOUR_TIRE,
+                      cost: "550",
+                      imagePath: "images/providerMarker.png",
+                    ));
               },
-              text: "عدد 4 ايطار",
+              text: Constants.FOUR_TIRE,
               iconVisibility:
-                  dataSource.selectedNumberOfTires == NumberOfTires.FOUR
-                      ? true
-                      : false,
+                  model.numberOfTires == NumberOfTires.FOUR ? true : false,
             ),
           ],
         );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/enums/enums.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
+import 'package:servicerequest/widgets/BottomSheetWidget.dart';
 import 'package:servicerequest/widgets/CustomContainer.dart';
-import 'package:servicerequest/widgets/NoResultAlertwidget.dart';
 
 import '../Constants.dart';
 import 'CutomWightRow.dart';
@@ -11,18 +11,26 @@ import 'CutomWightRow.dart';
 class InspectionMethod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<DataSource>(builder: (context, dataSource, child) {
+    return Consumer<SelectServiceModel>(builder: (context, model, child) {
       return CustomContainer(
         childern: [
           CutomWightRow(
             onTap: () {
-              dataSource.addMarkers();
-              dataSource.setInspectionMetod(Inspection.WINCH);
-              dataSource.setStatus(Status.SELECT_PROVIDER);
+              model.setInspectionMethod(Inspection.WINCH);
+              model.showBottomSheet(
+                  context,
+                  BottomSheetWidget(
+                    serviceName: Constants.PERIODIC_CHECK,
+                    serviceDetailsString: Constants.INSPECTION_WINCH,
+                    cost: "550",
+                    imagePath: "images/carPrimary.png",
+                  ));
             },
-            text: "النقل بالونش",
-            iconVisibility:
-                dataSource.inspection == Inspection.WINCH ? true : false,
+            text: Constants.INSPECTION_WINCH,
+            iconVisibility: model.inspectionMethod == Inspection.WINCH ||
+                    model.inspectionMethod == null
+                ? true
+                : false,
           ),
           SizedBox(
             child: Divider(
@@ -32,20 +40,20 @@ class InspectionMethod extends StatelessWidget {
           ),
           CutomWightRow(
             onTap: () {
-              //todo the correct implementation of this function
-              dataSource.addMarkers();
-              dataSource
-                  .setInspectionMetod(Inspection.SERVICE_PROVIDER_HIMSELF);
-              dataSource.setStatus(Status.No_Result);
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return NoResultAlertwidget();
-                  });
+              model.setInspectionMethod(Inspection.SERVICE_PROVIDER_HIMSELF);
+
+              model.showBottomSheet(
+                  context,
+                  BottomSheetWidget(
+                    serviceName: Constants.PERIODIC_CHECK,
+                    serviceDetailsString: Constants.INSPECTION_PROVIDER_HIMSELF,
+                    cost: "550",
+                    imagePath: "images/carPrimary.png",
+                  ));
             },
-            text: "النقل بواسطة القائم بالفحص",
+            text: Constants.INSPECTION_PROVIDER_HIMSELF,
             iconVisibility:
-                dataSource.inspection == Inspection.SERVICE_PROVIDER_HIMSELF
+                model.inspectionMethod == Inspection.SERVICE_PROVIDER_HIMSELF
                     ? true
                     : false,
           )
