@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:servicerequest/locator.dart';
-import 'package:servicerequest/viewmodels/map_model.dart';
+import 'package:provider/provider.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
 
 class MapContainer extends StatefulWidget {
   final Position currentPosition;
@@ -18,42 +18,12 @@ class MapContainer extends StatefulWidget {
 class _MapContainerState extends State<MapContainer> {
   Completer<GoogleMapController> _controller = Completer();
   GoogleMapController mapController;
-  LatLngBounds bounds;
-  LatLng _lastMapPosition;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _lastMapPosition = LatLng(
-        widget.currentPosition.latitude, widget.currentPosition.longitude);
-  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
     _controller.complete(controller);
-    LatLngBounds bound = locator<MapModel>().calculateBounds();
-    if (bound != null) {
-      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
-      this.mapController.animateCamera(u2).then((void v) {
-        check(u2, this.mapController);
-      });
-    }
-  }
-
-  void check(CameraUpdate u, GoogleMapController c) async {
-    c.animateCamera(u);
-    mapController.animateCamera(u);
-    LatLngBounds l1 = await c.getVisibleRegion();
-    LatLngBounds l2 = await c.getVisibleRegion();
-    print(l1.toString());
-    print(l2.toString());
-    if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90)
-      check(u, c);
-  }
-
-  void _onCameraMove(CameraPosition position) {
-    _lastMapPosition = position.target;
+    Provider.of<SelectServiceModel>(context, listen: false)
+        .setCameraControler(controller);
   }
 
   @override
@@ -62,9 +32,9 @@ class _MapContainerState extends State<MapContainer> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: GoogleMap(
-        onCameraMove: _onCameraMove,
-        markers: widget.markers,
+        minMaxZoomPreference: MinMaxZoomPreference(10, 14),
         onMapCreated: _onMapCreated,
+        markers: widget.markers,
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.currentPosition.latitude,
               widget.currentPosition.longitude),
@@ -74,3 +44,32 @@ class _MapContainerState extends State<MapContainer> {
     );
   }
 }
+
+//
+//  void check(CameraUpdate u, GoogleMapController c) async {
+//    c.animateCamera(u);
+//    mapController.animateCamera(u);
+//    LatLngBounds l1 = await c.getVisibleRegion();
+//    LatLngBounds l2 = await c.getVisibleRegion();
+//    print(l1.toString());
+//    print(l2.toString());
+//    if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90)
+//      check(u, c);
+//  }
+//
+//  void _onCameraMove(CameraPosition position) {
+//    _lastMapPosition = position.target;
+//  }
+
+//void _onMapCreated(GoogleMapController controller) {
+//  mapController = controller;
+//  _controller.complete(controller);
+//  Provider.of<SelectServiceModel>(context, listen: false)
+//      .setCameraControler(controller);
+//    LatLngBounds bound = locator<MapModel>().calculateBounds();
+//    if (bound != null) {
+//      CameraUpdate u2 = CameraUpdate.newLatLngBounds(bound, 50);
+//      mapController.animateCamera(u2).then((void v) {
+//        check(u2, mapController);
+//      });
+//}

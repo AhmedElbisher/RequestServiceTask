@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:servicerequest/enums/enums.dart';
 import 'package:servicerequest/model/ProviderInfo.dart';
-import 'package:servicerequest/viewmodels/choose_provider_model.dart';
+import 'package:servicerequest/viewmodels/select_service_model.dart';
+import 'package:servicerequest/widgets/BackArrow.dart';
 import 'package:servicerequest/widgets/MenuIcon.dart';
 import 'package:servicerequest/widgets/ProviderCard.dart';
+import 'package:servicerequest/widgets/mapContainer.dart';
 
 class ChooseProviderScreen extends StatefulWidget {
   @override
@@ -11,55 +14,78 @@ class ChooseProviderScreen extends StatefulWidget {
 }
 
 class _ChooseProviderScreenState extends State<ChooseProviderScreen> {
-  ChooseProviderModel model = ChooseProviderModel();
   @override
   Widget build(BuildContext context) {
-    return FutureProvider(
-        create: (_) => model.getAvailableProviders(),
-        child: Center(
-          child: Consumer<List<ProviderInfo>>(
-            builder: (context, model, child) => model == null
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Stack(
-                    children: [
-//                      MapContainer(
-//                        markers: model.markers.toSet(),
-//                        currentPosition: model.userPosition,
-//                      ),
-                      MenuIcon(),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          height:
-                              (MediaQuery.of(context).size.width * 2 / 5) + 20,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            reverse: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: model.length < 2 ? model.length : 2,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  ProviderCard(
-                                    name: model[index].name,
-                                    rating: model[index].rating,
-                                    normalCost: model[index].cost,
-                                    offerCost: model[index].offerCost,
-                                    imagePath: model[index].pictureUrl,
-                                    offerExists: true,
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-          ),
-        ));
+    return Consumer<SelectServiceModel>(
+        builder: (context, model, child) => FutureProvider(
+              create: (_) => model.getAvailableProviders(),
+              child: Consumer<List<ProviderInfo>>(
+                builder: (context, providerslist, child) => Stack(
+                  children: [
+                    MapContainer(
+                      markers: model.markers.toSet(),
+                      currentPosition: model.userPosition,
+                    ),
+                    MenuIcon(),
+                    BackArrow(back: () {
+                      model.clearAllMarkersAndPutOnlyOne();
+                      model.setLocalNav(LocalNav.START);
+                      Navigator.of(context).pop();
+                    }),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: providerslist == null
+                          ? Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : Container(
+                              height:
+                                  (MediaQuery.of(context).size.width * 2 / 5) +
+                                      20,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                reverse: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: providerslist.length < 2
+                                    ? providerslist.length
+                                    : 2,
+                                itemBuilder: (context, index) {
+                                  model.addMarkertoMap(
+                                      providerslist[index].position,
+                                      "images/providerMarker.png",
+                                      providerslist[index].name,
+                                      .75,
+                                      true);
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ProviderCard(
+                                        onCancel: () {
+                                          model.clearAllMarkersAndPutOnlyOne();
+                                          providerslist.removeAt(index);
+                                          print("cancel");
+                                        },
+                                        onConfirm: () {
+                                          print("confirmed");
+                                        },
+                                        name: providerslist[index].name,
+                                        rating: providerslist[index].rating,
+                                        normalCost: providerslist[index].cost,
+                                        offerCost:
+                                            providerslist[index].offerCost,
+                                        imagePath:
+                                            providerslist[index].pictureUrl,
+                                        offerExists: true,
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                    )
+                  ],
+                ),
+              ),
+            ));
   }
 }

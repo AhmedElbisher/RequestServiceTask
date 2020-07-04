@@ -10,10 +10,14 @@ class ProviderCard extends StatelessWidget {
   final bool offerExists;
   final String offerCost;
   final String normalCost;
+  final Function onCancel;
+  final Function onConfirm;
 
   ProviderCard(
       {this.imagePath,
       this.name,
+      this.onCancel,
+      this.onConfirm,
       this.rating,
       this.offerExists,
       this.offerCost,
@@ -59,15 +63,18 @@ class ProviderCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      margin: EdgeInsets.only(right: 8, top: 8),
-                      child: CircleAvatar(
-                        backgroundColor: Color(0xffdedede),
-                        radius: 10,
-                        child: Icon(
-                          Icons.clear,
-                          size: 15,
-                          color: Colors.black54,
+                    GestureDetector(
+                      onTap: onCancel,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 8, top: 8),
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xffdedede),
+                          radius: 10,
+                          child: Icon(
+                            Icons.clear,
+                            size: 15,
+                            color: Colors.black54,
+                          ),
                         ),
                       ),
                     ),

@@ -4,6 +4,7 @@ import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/DataSource.dart';
 import 'package:servicerequest/locator.dart';
 import 'package:servicerequest/services/locationService.dart';
+import 'package:servicerequest/viewmodels/map_model.dart';
 import 'package:servicerequest/viewmodels/select_service_model.dart';
 
 import 'Router.dart';
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(
               create: (context) => locator<SelectServiceModel>()),
           ChangeNotifierProvider(create: (context) => DataSource()),
+          ChangeNotifierProvider(create: (context) => locator<MapModel>()),
+
 //          ChangeNotifierProvider(
 //              create: (context) => locator<ChooseProviderModel>()),
         ],

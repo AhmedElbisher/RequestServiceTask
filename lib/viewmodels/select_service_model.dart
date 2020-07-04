@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/enums/enums.dart';
+import 'package:servicerequest/model/ProviderInfo.dart';
 import 'package:servicerequest/model/request.dart';
 import 'package:servicerequest/viewmodels/map_model.dart';
 import 'package:servicerequest/widgets/InspectionMethod.dart';
@@ -77,6 +81,39 @@ class SelectServiceModel extends MapModel {
         Navigator.of(context).pop();
         break;
     }
+  }
+
+//todo hit the api with details of request fetch the available consumer or git no result
+  Future<dynamic> delayTosimulateCallingApi() {
+    return Future.delayed(Duration(seconds: 5));
+  }
+
+  Future<List<ProviderInfo>> getAvailableProviders() async {
+    List<ProviderInfo> providers = [];
+    await delayTosimulateCallingApi();
+    providers.add(ProviderInfo(
+        name: "محمد3 ابن عبدالرحمن",
+        rating: 4.0,
+        cost: "200",
+        offerCost: "150",
+        pictureUrl: "images/profile.png",
+        position: Position(latitude: 31.2240108, longitude: 29.93086)));
+    providers.add(ProviderInfo(
+        name: "محمد 2ابن عبدالرحمن",
+        rating: 4.0,
+        cost: "200",
+        offerCost: "150",
+        pictureUrl: "images/profile.png",
+        position: Position(latitude: 31.2304821, longitude: 29.9498709)));
+    providers.add(ProviderInfo(
+        name: "محمد 1ابن عبدالرحمن",
+        rating: 4.0,
+        cost: "200",
+        offerCost: "150",
+        pictureUrl: "images/profile.png",
+        position: Position(latitude: 31.2212284, longitude: 29.9342302)));
+    //addMarkers();
+    return providers;
   }
 
   Widget getProperWiget() {

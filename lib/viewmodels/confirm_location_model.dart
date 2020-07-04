@@ -17,18 +17,18 @@ class ConfirmLocationModel extends MapModel {
     if (userPositionName != null) setDisplayName(true);
     if (userPosition != null)
       addMarkertoMap(
-          userPosition, "images/marker.png", "current position", .65);
+          userPosition, "images/marker.png", "current position", .65, false);
     setState(ViewState.IDLE);
     notifyListeners();
   }
 
   //todo delete this  its only for test
-  void addMarkers() {
-    addMarkertoMap(Position(latitude: 31.2240108, longitude: 29.93086),
-        "images/providerMarker.png", "aaaa", 1);
-    addMarkertoMap(Position(latitude: 31.2304821, longitude: 29.9498709),
-        "images/providerMarker.png", "aaaa", 1);
-    addMarkertoMap(Position(latitude: 31.2212284, longitude: 29.9342302),
-        "images/providerMarker.png", "bbb", 1);
-  }
+//  void addMarkers() {
+//    addMarkertoMap(Position(latitude: 31.2240108, longitude: 29.93086),
+//        "images/providerMarker.png", "aaaa", 1);
+//    addMarkertoMap(Position(latitude: 31.2304821, longitude: 29.9498709),
+//        "images/providerMarker.png", "aaaa", 1);
+//    addMarkertoMap(Position(latitude: 31.2212284, longitude: 29.9342302),
+//        "images/providerMarker.png", "bbb", 1);
+//  }
 }

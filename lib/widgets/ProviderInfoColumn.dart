@@ -10,11 +10,13 @@ class ProviderInfoColumn extends StatelessWidget {
   final bool offerExists;
   final String offerCost;
   final String normalCost;
+  final Function onConfirm;
 
   ProviderInfoColumn(
       {this.name,
       this.rating,
       this.offerExists,
+      this.onConfirm,
       this.offerCost,
       this.normalCost});
 
@@ -82,7 +84,7 @@ class ProviderInfoColumn extends StatelessWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () {},
+                onTap: onConfirm,
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 3.0),
                   decoration: BoxDecoration(
