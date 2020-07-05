@@ -9,6 +9,7 @@ import 'package:servicerequest/model/request.dart';
 import 'package:servicerequest/viewmodels/map_model.dart';
 import 'package:servicerequest/widgets/InspectionMethod.dart';
 import 'package:servicerequest/widgets/MaintainanceType.dart';
+import 'package:servicerequest/widgets/NoResultAlertwidget.dart';
 import 'package:servicerequest/widgets/SelectService.dart';
 import 'package:servicerequest/widgets/StartRequest.dart';
 import 'package:servicerequest/widgets/Tires.dart';
@@ -83,36 +84,43 @@ class SelectServiceModel extends MapModel {
     }
   }
 
-//todo hit the api with details of request fetch the available consumer or git no result
+//todo hit the api with details of request fetch the available providers or git no result
+  bool noresult = false;
   Future<dynamic> delayTosimulateCallingApi() {
     return Future.delayed(Duration(seconds: 5));
   }
 
-  Future<List<ProviderInfo>> getAvailableProviders() async {
+  bool noResult = false; //just for demo
+  Future<List<ProviderInfo>> getAvailableProviders(BuildContext context) async {
     List<ProviderInfo> providers = [];
     await delayTosimulateCallingApi();
+    // in case no available providers
+    if (noresult) {
+      showDialog(context: context, builder: (context) => NoResultAlertwidget());
+      noresult = !noresult;
+      return null;
+    }
     providers.add(ProviderInfo(
-        name: "محمد3 ابن عبدالرحمن",
+        name: "محمد ابن عبدالرحمن",
         rating: 4.0,
         cost: "200",
         offerCost: "150",
         pictureUrl: "images/profile.png",
         position: Position(latitude: 31.2240108, longitude: 29.93086)));
     providers.add(ProviderInfo(
-        name: "محمد 2ابن عبدالرحمن",
-        rating: 4.0,
+        name: "احمد بشير غريـــب",
+        rating: 5.0,
         cost: "200",
         offerCost: "150",
         pictureUrl: "images/profile.png",
         position: Position(latitude: 31.2304821, longitude: 29.9498709)));
     providers.add(ProviderInfo(
-        name: "محمد 1ابن عبدالرحمن",
-        rating: 4.0,
+        name: "محمد بشير غريـــب",
+        rating: 5.0,
         cost: "200",
         offerCost: "150",
         pictureUrl: "images/profile.png",
         position: Position(latitude: 31.2212284, longitude: 29.9342302)));
-    //addMarkers();
     return providers;
   }
 
@@ -186,6 +194,7 @@ class SelectServiceModel extends MapModel {
         }
     }
     reqeustString += request.schesuleTime.toString();
+    reqeustString += request.userPosition.toString();
     print(reqeustString);
   }
 }

@@ -1,11 +1,20 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:servicerequest/enums/enums.dart';
 import 'package:servicerequest/locator.dart';
+import 'package:servicerequest/services/NetworkHelper.dart';
 import 'package:servicerequest/services/locationService.dart';
 import 'package:servicerequest/viewmodels/map_model.dart';
 
 class ConfirmLocationModel extends MapModel {
+  NetworkHelper networkHelper = locator<NetworkHelper>();
   LocationService _locationService = locator<LocationService>();
+  bool _isSearching = false;
+  bool get isSearching => _isSearching;
+
+  void setIsSearching(bool val) {
+    _isSearching = val;
+    notifyListeners();
+  }
 
   void getCurrenPosition() async {
     setState(ViewState.BUSY);
@@ -15,20 +24,27 @@ class ConfirmLocationModel extends MapModel {
     if (userPosition != null)
       setUserPostionName(await _locationService.getPlaceName(userPosition));
     if (userPositionName != null) setDisplayName(true);
-    if (userPosition != null)
-      addMarkertoMap(
-          userPosition, "images/marker.png", "current position", .65, false);
+    if (userPosition != null) {
+      addSingelMarker(
+          userPosition, "images/location.png", "current position", .65, true);
+    }
     setState(ViewState.IDLE);
     notifyListeners();
   }
 
-  //todo delete this  its only for test
-//  void addMarkers() {
-//    addMarkertoMap(Position(latitude: 31.2240108, longitude: 29.93086),
-//        "images/providerMarker.png", "aaaa", 1);
-//    addMarkertoMap(Position(latitude: 31.2304821, longitude: 29.9498709),
-//        "images/providerMarker.png", "aaaa", 1);
-//    addMarkertoMap(Position(latitude: 31.2212284, longitude: 29.9342302),
-//        "images/providerMarker.png", "bbb", 1);
-//  }
+  Future<void> searchforUserLocation(String quary) async {
+    setIsSearching(true);
+    dynamic jsonResponce = await networkHelper.getdata(quary);
+    setIsSearching(false);
+    if (jsonResponce != null) {
+      setUserPostionName(jsonResponce["candidates"][0]["name"] as String);
+      double lat = jsonResponce["candidates"][0]["geometry"]["location"]["lat"]
+          as double;
+      double lng = jsonResponce["candidates"][0]["geometry"]["location"]["lng"]
+          as double;
+      changeUserPosition(lat, lng);
+    } else {
+      setUserPostionName("لا يوجد مكان باسم $quary");
+    }
+  }
 }

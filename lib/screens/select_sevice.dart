@@ -22,7 +22,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
             child: Stack(
               children: [
                 MapContainer(
-                  markers: model.markers.toSet(),
+                  markers: model.singelMarkerList.toSet(),
                   currentPosition: model.userPosition,
                 ),
                 MenuIcon(),

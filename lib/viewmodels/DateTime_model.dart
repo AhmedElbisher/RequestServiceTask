@@ -1,7 +1,7 @@
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
-class DateTimeModule {
+class DateTimeModel {
   DateTime _selectedSchedualeTime;
   DateTime now = DateTime.now();
 
@@ -12,7 +12,6 @@ class DateTimeModule {
   DateTime get selectedSchedualeTime => _selectedSchedualeTime;
 
   Future<List<String>> getdaysList() async {
-    //setState(ViewState.BUSY);
     List<String> dayesList = ["اليوم", "غدا"];
     await initializeDateFormatting("ar_SA", null);
     List<String> days = [];
@@ -24,8 +23,6 @@ class DateTimeModule {
       dayesList.add("$name $date");
     }
     return dayesList;
-    //setState(ViewState.IDLE);
-    //notifyListeners();
   }
 
   DateTime getScheduleDate(int day, int hour, int am) {

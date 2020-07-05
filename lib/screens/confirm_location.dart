@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/enums/enums.dart';
@@ -33,7 +34,7 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
                   child: Stack(
                     children: [
                       MapContainer(
-                        markers: model.markers.toSet(),
+                        markers: model.singelMarkerList.toSet(),
                         currentPosition: model.userPosition,
                       ),
                       Visibility(
@@ -53,24 +54,30 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
                               Provider.of<SelectServiceModel>(context,
                                       listen: false)
                                   .setLocalNav(LocalNav.START);
+                              Provider.of<SelectServiceModel>(context,
+                                      listen: false)
+                                  .request
+                                  .userPosition = model.userPosition;
                               Navigator.pushNamed(
                                   context, Constants.KSELECTSERVICE);
                             },
                             text: "تأكيد الموقع",
                           )),
                       Align(
+                        alignment: Alignment.center,
+                        child: model.isSearching
+                            ? SpinKitDoubleBounce(
+                                color: Constants.KPrimaryColor,
+                                size: 50.0,
+                              )
+                            : null,
+                      ),
+                      Align(
                           alignment: Alignment.topCenter,
                           child: SearchField(
                             onSummitted: (quary) {
-                              //todo here will trigger a function to search for the location and retreive data from google places Api
-                              // set the userposition to the new postition
-                              //set the name to the new name
-                              //set displayname to true
-                              //navigate the camera to it
-                              // static data for testing ui
-
+                              model.searchforUserLocation(quary);
                               model.setDisplayName(true);
-                              model.setUserPostionName(quary);
                             },
                             controller: controller,
                           )),
@@ -79,7 +86,13 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
                   ),
                 )
               : Center(
-                  child: CircularProgressIndicator(),
+                  child: Container(
+                    color: Constants.KPrimaryColor,
+                    child: SpinKitDoubleBounce(
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                  ),
                 ),
         );
       },

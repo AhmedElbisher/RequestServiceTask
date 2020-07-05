@@ -45,7 +45,9 @@ class ConfirmAlertWidget extends StatelessWidget {
                       .schesuleTime = DateTime.now().add(Duration(hours: 24));
                   Provider.of<SelectServiceModel>(context, listen: false)
                       .printReqeust();
-                  Navigator.pushNamed(context, Constants.KChooseProvider);
+                  Provider.of<SelectServiceModel>(context, listen: false)
+                      .clearAllMarkersAndPutOnlyUserCurrentLocation();
+                  Navigator.popAndPushNamed(context, Constants.KChooseProvider);
                 },
               ),
             ),

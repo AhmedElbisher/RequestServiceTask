@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:servicerequest/Constants.dart';
+import 'package:servicerequest/enums/enums.dart';
 import 'package:servicerequest/viewmodels/select_service_model.dart';
 import 'package:servicerequest/widgets/ConfirmAlertWidget.dart';
 import 'package:servicerequest/widgets/ConfirmButton.dart';
@@ -35,25 +36,22 @@ class BottomSheetWidget extends StatelessWidget {
                     "$cost SRA",
                     style: Constants.KProviderTextStyle,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        serviceName,
-                        textAlign: TextAlign.end,
-                        style: Constants.KProviderTextStyle,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Container(
-                        height: 50.0,
-                        width: 50.0,
-                        child: Image(
-                          image: AssetImage(imagePath),
-                        ),
-                      )
-                    ],
+                  Expanded(
+                    child: Text(
+                      serviceName,
+                      textAlign: TextAlign.end,
+                      style: Constants.KProviderTextStyle,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Container(
+                    height: 40.0,
+                    width: 40.0,
+                    child: Image(
+                      image: AssetImage(imagePath),
+                    ),
                   )
                 ],
               ),
@@ -83,11 +81,13 @@ class BottomSheetWidget extends StatelessWidget {
               ),
             ),
             Container(
+              height: 45,
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
                   GestureDetector(
                     onTap: () {
+                      model.setState(ViewState.BUSY);
                       model.showBottomSheet(context, ScheduleWidget());
                     },
                     child: Container(
@@ -99,7 +99,7 @@ class BottomSheetWidget extends StatelessWidget {
                           elevation: 4,
                           color: Constants.KPrimaryColor,
                           child: Image(
-                            width: 50,
+                            width: 40,
                             height: 40,
                             image: AssetImage("images/date.png"),
                           )),

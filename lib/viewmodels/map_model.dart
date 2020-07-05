@@ -5,12 +5,14 @@ import 'package:servicerequest/viewmodels/base_model.dart';
 
 class MapModel extends BaseModel {
   static List<Marker> _markers = [];
+  static List<Marker> _singelMarkerList = [];
   static List<Position> _markerPositions = [];
   static Position _userPosition;
   static String _userPositionName;
   static bool _displayName;
-  GoogleMapController _mapController;
+  static GoogleMapController _mapController;
 
+  List<Marker> get singelMarkerList => _singelMarkerList;
   GoogleMapController get mapController => _mapController;
   Position get userPosition => _userPosition;
   String get userPositionName => _userPositionName;
@@ -27,6 +29,15 @@ class MapModel extends BaseModel {
   void setUserPostionName(String value) {
     _userPositionName = value;
     notifyListeners();
+  }
+
+  void changeUserPosition(double lat, double lng) {
+    if (mapController != null && lat != null)
+      mapController.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(lat, lng), zoom: 16)));
+    setUserPosition(Position(longitude: lng, latitude: lat));
+    addSingelMarker(
+        userPosition, "images/location.png", "current position", 1, true);
   }
 
   void setDisplayName(bool state) {
@@ -53,11 +64,35 @@ class MapModel extends BaseModel {
     }
   }
 
-  void clearAllMarkersAndPutOnlyOne() {
+  void addSingelMarker(Position position, String imagePath, String markerId,
+      double alpha, bool k) async {
+    ImageConfiguration imageConfiguration = ImageConfiguration();
+    var bitmapDescriper =
+        await BitmapDescriptor.fromAssetImage(imageConfiguration, imagePath);
+    _singelMarkerList.clear();
+    _singelMarkerList.add(Marker(
+      alpha: alpha,
+      markerId: MarkerId(markerId),
+      position: LatLng(position.latitude, position.longitude),
+      icon: bitmapDescriper,
+    ));
+    notifyListeners();
+    if (mapController != null && k) {
+      calculateBounds();
+      animate();
+    }
+  }
+
+  void clearAllMarkers() {
     _markers.clear();
     _markerPositions.clear();
+    notifyListeners();
+  }
+
+  void clearAllMarkersAndPutOnlyUserCurrentLocation() {
+    clearAllMarkers();
     addMarkertoMap(
-        userPosition, "images/marker.png", "current position", .65, false);
+        userPosition, "images/location.png", "current position", 1, false);
     notifyListeners();
   }
 
@@ -88,31 +123,5 @@ class MapModel extends BaseModel {
   void animate() {
     CameraUpdate u2 = CameraUpdate.newLatLngBounds(bounds1, 50);
     mapController.animateCamera(u2);
-//    then((void v) {
-//      check(u2, mapController);
-//    });
   }
-
-//  void check(CameraUpdate u, GoogleMapController c) async {
-//    c.animateCamera(u);
-//    mapController.animateCamera(u);
-//    LatLngBounds l1 = await c.getVisibleRegion();
-//    LatLngBounds l2 = await c.getVisibleRegion();
-//    print(l1.toString());
-//    print(l2.toString());
-//    if (l1.southwest.latitude == -90 || l2.southwest.latitude == -90)
-//      check(u, c);
-//  }
-
-  //todo delete this  its only for test
-//  void addMarkers() {
-//    addMarkertoMap(Position(latitude: 31.2240108, longitude: 29.93086),
-//        "images/providerMarker.png", "aaaa", 1);
-//    addMarkertoMap(Position(latitude: 31.2304821, longitude: 29.9498709),
-//        "images/providerMarker.png", "aaaa", 1);
-//    addMarkertoMap(Position(latitude: 31.2212284, longitude: 29.9342302),
-//        "images/providerMarker.png", "bbb", 1);
-//    calculateBounds();
-//    animate();
-//  }
 }

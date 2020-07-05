@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:servicerequest/enums/enums.dart';
+import 'package:servicerequest/Constants.dart';
 import 'package:servicerequest/model/ProviderInfo.dart';
 import 'package:servicerequest/viewmodels/select_service_model.dart';
 import 'package:servicerequest/widgets/BackArrow.dart';
@@ -18,7 +19,7 @@ class _ChooseProviderScreenState extends State<ChooseProviderScreen> {
   Widget build(BuildContext context) {
     return Consumer<SelectServiceModel>(
         builder: (context, model, child) => FutureProvider(
-              create: (_) => model.getAvailableProviders(),
+              create: (_) => model.getAvailableProviders(context),
               child: Consumer<List<ProviderInfo>>(
                 builder: (context, providerslist, child) => Stack(
                   children: [
@@ -28,15 +29,19 @@ class _ChooseProviderScreenState extends State<ChooseProviderScreen> {
                     ),
                     MenuIcon(),
                     BackArrow(back: () {
-                      model.clearAllMarkersAndPutOnlyOne();
-                      model.setLocalNav(LocalNav.START);
-                      Navigator.of(context).pop();
+                      model.clearAllMarkersAndPutOnlyUserCurrentLocation();
+                      Navigator.pop(context);
                     }),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: providerslist == null
                           ? Center(
-                              child: CircularProgressIndicator(),
+                              child: Container(
+                                child: SpinKitDoubleBounce(
+                                  size: 50,
+                                  color: Constants.KPrimaryColor,
+                                ),
+                              ),
                             )
                           : Container(
                               height:
@@ -61,7 +66,8 @@ class _ChooseProviderScreenState extends State<ChooseProviderScreen> {
                                     children: [
                                       ProviderCard(
                                         onCancel: () {
-                                          model.clearAllMarkersAndPutOnlyOne();
+                                          model
+                                              .clearAllMarkersAndPutOnlyUserCurrentLocation();
                                           providerslist.removeAt(index);
                                           print("cancel");
                                         },

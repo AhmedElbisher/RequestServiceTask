@@ -3,6 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class Constants {
+  static const String BASE_URL =
+      "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=";
+  static const String API_KEY = "AIzaSyBhl8qb0wpPoreHszND_fGZcczqu8iXKH0";
+  static const String PARAMETERS =
+      "&inputtype=textquery&language==ar&fields=formatted_address,name,geometry&key=";
+
   static const String PERIODIC_CHECK = "الفحص الدورى للسيارة";
   static const String MAINTAINANCE = "صيانة السيارة";
   static const String CHANGE_TIRES = "تغيير الايطار";
@@ -29,7 +35,7 @@ class Constants {
   static const Color KDecorationColor = Color(0xffdf0808);
   static const Color KLineThouthTextColor = Color(0xffc8c8c8);
   static const TextStyle KProviderTextStyle = TextStyle(
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: FontWeight.w700,
     color: Constants.KPrimaryColor,
   );

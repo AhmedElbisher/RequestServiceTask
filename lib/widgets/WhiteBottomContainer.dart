@@ -20,8 +20,9 @@ class WhiteBottomContainer extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(8), topRight: Radius.circular(8))),
         margin: EdgeInsets.symmetric(horizontal: 10),
-        padding: EdgeInsets.only(bottom: 100, top: 16, left: 10, right: 10),
+        padding: EdgeInsets.only(bottom: 85, top: 16, left: 10, right: 10),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Visibility(
@@ -39,26 +40,23 @@ class WhiteBottomContainer extends StatelessWidget {
                   )),
             ),
             Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      currentLocationName,
-                      textAlign: TextAlign.right,
-                      textDirection: TextDirection.rtl,
-                      style: TextStyle(
-                          fontSize: 20, color: Constants.KPrimaryColor),
-                    ),
-                  ),
-                  Icon(
-                    Icons.location_on,
-                    size: 20,
-                    color: Constants.KPrimaryColor,
-                  )
-                ],
+              child: Container(
+                // margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  currentLocationName,
+                  maxLines: 2,
+                  textAlign: TextAlign.right,
+                  textDirection: TextDirection.rtl,
+                  style:
+                      TextStyle(fontSize: 20, color: Constants.KPrimaryColor),
+                ),
               ),
+            ),
+            Container(
+              child: Image(
+                  width: 24,
+                  height: 24,
+                  image: AssetImage("images/location.png")),
             )
           ],
         ),
@@ -66,3 +64,8 @@ class WhiteBottomContainer extends StatelessWidget {
     );
   }
 }
+//Icon(
+//Icons.location_on,
+//size: 20,
+//color: Constants.KPrimaryColor,
+//)

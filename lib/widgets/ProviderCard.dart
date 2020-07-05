@@ -72,7 +72,7 @@ class ProviderCard extends StatelessWidget {
                           radius: 10,
                           child: Icon(
                             Icons.clear,
-                            size: 15,
+                            size: 20,
                             color: Colors.black54,
                           ),
                         ),

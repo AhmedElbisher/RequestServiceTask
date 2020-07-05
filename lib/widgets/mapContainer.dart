@@ -32,13 +32,13 @@ class _MapContainerState extends State<MapContainer> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: GoogleMap(
-        minMaxZoomPreference: MinMaxZoomPreference(10, 14),
+        minMaxZoomPreference: MinMaxZoomPreference(10, 18),
         onMapCreated: _onMapCreated,
         markers: widget.markers,
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.currentPosition.latitude,
               widget.currentPosition.longitude),
-          zoom: 14.0,
+          zoom: 16.0,
         ),
       ),
     );
