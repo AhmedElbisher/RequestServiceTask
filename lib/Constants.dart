@@ -1,11 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class Constants {
   static const String BASE_URL =
       "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=";
-  static const String API_KEY = ;
+  static const String API_KEY = "AIzaSyBhl8qb0wpPoreHszND_fGZcczqu8iXKH0";
   static const String PARAMETERS =
       "&inputtype=textquery&language==ar&fields=formatted_address,name,geometry&key=";
 
