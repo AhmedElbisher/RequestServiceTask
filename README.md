@@ -1,5 +1,5 @@
 # service Request
-> A Flutter Application offering finding location,places search,reqeust vehicle service and suggest providers.[APK](https://drive.google.com/file/d/1HinFzbry4XKXKvwt118Vb6L5_I2pFMeO/view?usp=sharing)
+> A Flutter Application offering finding location,places search, vehicle service request and providers suggestion.[APK](https://drive.google.com/file/d/1HinFzbry4XKXKvwt118Vb6L5_I2pFMeO/view?usp=sharing)
 ## Tecnologies
 * Google maps
 * Google places Api
