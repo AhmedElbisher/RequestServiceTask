@@ -5,7 +5,7 @@
 * Google places Api
 * Gitit
 * Flutter_SpinKit 
-* Future Provides
+* Future Provider
 * Geolocator
 * Http
 * intl 
