@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Constants {
   static const String BASE_URL =
       "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=";
-  static const String API_KEY = "AIzaSyBhl8qb0wpPoreHszND_fGZcczqu8iXKH0";
+  static const String API_KEY = "google_places_API_Key";
   static const String PARAMETERS =
       "&inputtype=textquery&language==ar&fields=formatted_address,name,geometry&key=";
 
@@ -18,7 +18,6 @@ class Constants {
   static const String MAINTAINANCE_ELECTICAL = "كهربى";
   static const String MAINTAINANCE_MECHANICAL = "ميكانيكي";
   static const String MAINTAINANCE_OTHER = "اخرى";
-
   static const String ONE_TIRE = "عدد 1 ايطار";
   static const String TWO_TIRE = "عدد 2 ايطار";
   static const String THREE_TIRE = "عدد 3 ايطار";

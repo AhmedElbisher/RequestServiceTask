@@ -18,15 +18,13 @@ class ConfirmLocationModel extends MapModel {
 
   void getCurrenPosition() async {
     setState(ViewState.BUSY);
-    //  _userPosition = await _locationService.getCurrentLocation();
-    //todo remove this
-    setUserPosition(Position(latitude: 31.2216, longitude: 29.9343));
-    if (userPosition != null)
-      setUserPostionName(await _locationService.getPlaceName(userPosition));
-    if (userPositionName != null) setDisplayName(true);
-    if (userPosition != null) {
+    Position position = await _locationService.getCurrentLocation();
+    if (position != null) {
+      setUserPosition(position);
       addSingelMarker(
           userPosition, "images/location.png", "current position", .65, true);
+      setUserPostionName(await _locationService.getPlaceName(userPosition));
+      if (userPositionName != null) setDisplayName(true);
     }
     setState(ViewState.IDLE);
     notifyListeners();

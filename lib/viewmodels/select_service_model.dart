@@ -9,7 +9,6 @@ import 'package:servicerequest/model/request.dart';
 import 'package:servicerequest/viewmodels/map_model.dart';
 import 'package:servicerequest/widgets/InspectionMethod.dart';
 import 'package:servicerequest/widgets/MaintainanceType.dart';
-import 'package:servicerequest/widgets/NoResultAlertwidget.dart';
 import 'package:servicerequest/widgets/SelectService.dart';
 import 'package:servicerequest/widgets/StartRequest.dart';
 import 'package:servicerequest/widgets/Tires.dart';
@@ -84,8 +83,7 @@ class SelectServiceModel extends MapModel {
     }
   }
 
-//todo hit the api with details of request fetch the available providers or git no result
-  bool noresult = false;
+//todo hit the api with details of request ,fetch the available providers (or git no result and )replace this code which use static data
   Future<dynamic> delayTosimulateCallingApi() {
     return Future.delayed(Duration(seconds: 5));
   }
@@ -94,33 +92,31 @@ class SelectServiceModel extends MapModel {
   Future<List<ProviderInfo>> getAvailableProviders(BuildContext context) async {
     List<ProviderInfo> providers = [];
     await delayTosimulateCallingApi();
-    // in case no available providers
-    if (noresult) {
-      showDialog(context: context, builder: (context) => NoResultAlertwidget());
-      noresult = !noresult;
-      return null;
-    }
+    //todo in case no available providers
+    // showDialog(context: context, builder: (context) => NoResultAlertwidget());
+    //and return
+
     providers.add(ProviderInfo(
         name: "محمد ابن عبدالرحمن",
         rating: 4.0,
         cost: "200",
         offerCost: "150",
         pictureUrl: "images/profile.png",
-        position: Position(latitude: 31.2240108, longitude: 29.93086)));
+        position: Position(latitude: 31.2274675, longitude: 29.9434076)));
     providers.add(ProviderInfo(
         name: "احمد بشير غريـــب",
         rating: 5.0,
         cost: "200",
         offerCost: "150",
         pictureUrl: "images/profile.png",
-        position: Position(latitude: 31.2304821, longitude: 29.9498709)));
+        position: Position(latitude: 31.2352253, longitude: 29.9544881)));
     providers.add(ProviderInfo(
         name: "محمد بشير غريـــب",
         rating: 5.0,
         cost: "200",
         offerCost: "150",
         pictureUrl: "images/profile.png",
-        position: Position(latitude: 31.2212284, longitude: 29.9342302)));
+        position: Position(latitude: 31.2304946, longitude: 29.9512656)));
     return providers;
   }
 
@@ -148,6 +144,7 @@ class SelectServiceModel extends MapModel {
     }
   }
 
+  //for debugging only
   void printReqeust() {
     String reqeustString = "";
     switch (request.SelectedService) {
