@@ -1,17 +1,16 @@
 # servicerequest
+> A Flutter Application offering finding location,places search,reqeust vehicle service and suggest providers.[APK](https://drive.google.com/file/d/1HinFzbry4XKXKvwt118Vb6L5_I2pFMeO/view?usp=sharing)
+## Tecnologies
+* Google maps
+* Google places Api
+* Gitit
+* Flutter_SpinKit 
+* Future Provides
+* Geolocator
+* Http
+* intl 
+*ChangeNotifier and ChangeNotifierprovider
 
-A new Flutter application.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 ![hdhdh](https://github.com/AhmedElbisher/RequestServiceTask/blob/master/images/demo.gif?raw=true)
