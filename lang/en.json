@@ -1,0 +1,20 @@
+
+{
+  "title": "Hello!",
+  "Message" : "This is English",
+  "faceLogin": "login by facebook",
+  "googleLogin": "login by google",
+  "or": "or",
+  "phoneLogin": "login by phone",
+  "Not Now": "Not Now",
+  "agree with": "agree with",
+  "Terms": "Terms and conditions of service providers",
+  "phoneLogin2": "login by phone",
+  "country": "country",
+  "Saudi Arabia": "Saudi Arabia",
+  "phoneNumber": "phone number",
+  "confirm":"confirm",
+  "verificationCode" : "verification Code",
+  "resend": "Resend"
+
+}

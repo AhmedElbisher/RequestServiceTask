@@ -12,7 +12,7 @@ class ConfirmButton extends StatelessWidget {
       height: 50.0,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
-          color: Constants.KPrimaryColor),
+          color: Constants.KDarkBlueColor),
       child: MaterialButton(
         elevation: 4,
         onPressed: onPress,

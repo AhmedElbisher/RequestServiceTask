@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:servicerequest/sizeConfig.dart';
 
 import '../Constants.dart';
 
 class BackArrow extends StatelessWidget {
   final Function back;
-
-  BackArrow({this.back});
-
+  final Color color;
+  BackArrow({this.back, this.color});
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
-        margin: EdgeInsets.all(20),
+        margin:
+            EdgeInsets.only(top: 20, left: SizeConfig.safeBlockHorizontal * 3),
         child: GestureDetector(
           onTap: back,
           child: Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: color ?? Colors.white,
             size: Constants.KSearchIconSize,
+            textDirection: TextDirection.ltr,
           ),
         ),
       ),

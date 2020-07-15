@@ -47,7 +47,8 @@ class ConfirmAlertWidget extends StatelessWidget {
                       .printReqeust();
                   Provider.of<SelectServiceModel>(context, listen: false)
                       .clearAllMarkersAndPutOnlyUserCurrentLocation();
-                  Navigator.popAndPushNamed(context, Constants.KChooseProvider);
+                  Navigator.popAndPushNamed(
+                      context, Constants.KChooseProviderScreen);
                 },
               ),
             ),

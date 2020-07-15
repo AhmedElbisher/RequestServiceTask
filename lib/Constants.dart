@@ -23,10 +23,28 @@ class Constants {
   static const String THREE_TIRE = "عدد 3 ايطار";
   static const String FOUR_TIRE = "عدد 4 ايطار";
 
-  static const String KConfirmLocation = '/';
-  static const String KSELECTSERVICE = '/map2';
-  static const String KChooseProvider = '/map3';
+  static const String KConfirmLocationScreen = '/';
+  static const String KSELECTSERVICEScreen = '/map2';
+  static const String KChooseProviderScreen = '/map3';
+  static const String KMainLoginScreen = '/login';
+  static const String KPhoneLoginScreen = '/phoneLogin';
+  static const String KVerificationCodeScreen = '/VerificationCode';
 
+  static const String CAIRO_FONT_FAMILY = "Cairo";
+
+  static const Color KWhiteColor = Color(0xffFFFFFF);
+  static const Color KDarkGrayColor = Color(0xff505050);
+  static const Color KLightGrayColor = Color(0xffF1F1F1);
+  static const Color KGoldGrayColor = Color(0xffC3922E);
+  static const Color KDarkBlueColor = Color(0xff002D57);
+  static const Color KFacebookBlueColor = Color(0xff4267B2);
+  static const Color KRedColor = Color(0xffE91D1D);
+  static const Color KGreenColor = Color(0xff5AB857);
+  static const Color KOrangeColor = Color(0xffF97510);
+  static const Color KYellowColor = Color(0xffFEC240);
+  static const Color KGrayColor = Color(0xffC4C4C4);
+
+//todo to be deleted
   static const Color KaAccentColor = Color(0xffd0b475);
   static const Color KHelperColor = Color(0xff9e9999);
   static const Color KDecorationColor = Color(0xffdf0808);

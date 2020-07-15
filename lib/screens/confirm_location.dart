@@ -59,7 +59,7 @@ class _ConfirmLocationScreenState extends State<ConfirmLocationScreen> {
                                   .request
                                   .userPosition = model.userPosition;
                               Navigator.pushNamed(
-                                  context, Constants.KSELECTSERVICE);
+                                  context, Constants.KSELECTSERVICEScreen);
                             },
                             text: "تأكيد الموقع",
                           )),

@@ -127,7 +127,8 @@ class _ScheduleWidgetState extends State<ScheduleWidget> {
                             selectedDay, selectedHR, selectedAm);
                         model.clearAllMarkersAndPutOnlyUserCurrentLocation();
                         model.printReqeust();
-                        Navigator.pushNamed(context, Constants.KChooseProvider);
+                        Navigator.pushNamed(
+                            context, Constants.KChooseProviderScreen);
                       },
                     ))
                   ],
